@@ -3,49 +3,46 @@ module ActAsCnpjCpf
     attr_reader :numero
 
     def initialize(numero)
-      @match  = numero.gsub(/[^0-9]/, '') =~ self.class::REGEX
+      @numero = numero.to_s.gsub(/[^0-9]/, '')
+      @match  = @numero =~ self.class::REGEX
       @puro   = $1
       @digito = $2
-      @numero = @match ? $1+$2 : nil
+      @numero = valido? ? $1+$2 : ''
     end
-    
+
     def to_s
-      @numero || ''
+      @numero
     end
-    
-    def ==(outro_doc)
-      self.numero == outro_doc.numero
-    end
-    
-    def valido?   
-      return false unless @match    
+
+    def valido?
+      return false unless @match
       verifica_numero
     end
 
     private
-      
-      def verifica_numero    
+
+      def verifica_numero
         return false if @numero.length != self.class::LENGTH ||
                         @numero.scan(/\d/).uniq.length == 1
 
         primeiro_dv + segundo_dv(primeiro_dv) == @digito
       end
-      
+
       def multiplica_e_soma(algs, numeros)
         results = []
-        numeros.scan(/\d{1}/).each_with_index { |e, i| results[i] = e.to_i * algs[i] } 
-        results.inject { |s,e| s + e }    
+        numeros.scan(/\d{1}/).each_with_index { |e, i| results[i] = e.to_i * algs[i] }
+        results.inject { |s,e| s + e }
       end
-      
+
       def dv(resto)
         resto < 2 ? 0 : 11 - resto
       end
-      
+
       def primeiro_dv
         @primeiro ||= dv(multiplica_e_soma(self.class::ALGS_1, @puro) % 11).to_s
       end
 
-      def segundo_dv(primeiro_verificador) 
+      def segundo_dv(primeiro_verificador)
         dv(multiplica_e_soma(self.class::ALGS_2, @puro + primeiro_verificador) % 11).to_s
       end
   end

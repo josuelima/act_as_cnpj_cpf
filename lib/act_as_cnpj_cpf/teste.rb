@@ -1,6 +1,6 @@
 require './base'
-require './cpf'
+require './cnpj'
 
-a = ActAsCnpjCpf::Cpf.new '06454383407'
+a = ActAsCnpjCpf::Cnpj.new '09.135.930/0001-27'
 puts a.valido?
-puts a.numero
+puts a.formatado
