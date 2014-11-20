@@ -3,3 +3,4 @@
 .rvmrc
 .bundle/
 .rspec
+.sqlite3
