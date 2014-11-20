@@ -25,10 +25,18 @@ module ActAsCnpjCpf
         end
       end
 
-      it '.to_s' do
+      it '#to_s' do
         cnpjs.each do |c|
           expect(Cnpj.new(c).to_s).to eq c.gsub(/[^0-9]/, '')
         end
+      end
+
+      it '==' do
+        num    = Faker::CNPJ.numeric
+        cnpj_1 = Cnpj.new(num)
+        cnpj_2 = Cnpj.new(num)
+        expect(cnpj_1).to eq cnpj_2
+        expect(cnpj_1).to eq num
       end
     end
 
@@ -53,7 +61,7 @@ module ActAsCnpjCpf
         end
       end
 
-      it '.to_s' do
+      it '#to_s' do
         cnpjs.each do |c|
           expect(Cnpj.new(c).to_s).to eq ''
         end

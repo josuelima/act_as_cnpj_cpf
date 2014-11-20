@@ -27,7 +27,13 @@ module ActAsCnpjCpf
         end
       end
 
-      it '.to_s' do
+      it '#to_s' do
+        codigos.each do |c|
+          expect(CnpjOuCpf.new(c).to_s).to eq c.gsub(/[^0-9]/, '')
+        end
+      end
+
+      it '==' do
         codigos.each do |c|
           expect(CnpjOuCpf.new(c).to_s).to eq c.gsub(/[^0-9]/, '')
         end
@@ -55,7 +61,7 @@ module ActAsCnpjCpf
         end
       end
 
-      it '.to_s' do
+      it '#to_s' do
         codigos.each do |c|
           expect(CnpjOuCpf.new(c).to_s).to eq ''
         end

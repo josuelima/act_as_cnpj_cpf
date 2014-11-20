@@ -19,6 +19,10 @@ module ActAsCnpjCpf
       verifica_numero
     end
 
+    def == other
+      other.is_a?(self.class) ? self.numero == other.numero : self.numero == other
+    end
+
     private
 
       def verifica_numero
