@@ -3,4 +3,4 @@
 .rvmrc
 .bundle/
 .rspec
-*.sqlite3
+cnpj_cpf_spec.sqlite3
