@@ -8,7 +8,7 @@ module ActAsCnpjCpf
     end
 
     private
-    
+
       LENGTH  = 11
       REGEX   = /^(\d{3}\.?\d{3}\.?\d{3})-?(\d{2})$/
       ALGS_1  = [10, 9, 8, 7, 6, 5, 4, 3, 2]
