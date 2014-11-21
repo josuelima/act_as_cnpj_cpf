@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ActAsCnpjCpf
   module CnpjCpfActiveRecord
     def self.included(base)
