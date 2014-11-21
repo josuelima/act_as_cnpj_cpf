@@ -21,13 +21,13 @@ module ActAsCnpjCpf
       # http://api.rubyonrails.org/classes/ActiveRecord/Aggregations/ClassMethods.html
       def add_composed_class(name, klass)
         options = {class_name: klass, mapping: [name.to_s, 'numero'], allow_nil: true}
-        cons    = Proc.new { |numero| eval(klass).new(numero) }
+        cons    = Proc.new { |numero| klass.constantize.new(numero) }
         composed_of name, options.merge({constructor: cons, converter: cons})
       end
 
       # cria validacao para o model
       def create_validation(field, options, klass)
-        str = <<-CODE
+        <<-CODE
           validate :#{field}_vazio?, :#{field}_valido?
 
           def #{field}_vazio?

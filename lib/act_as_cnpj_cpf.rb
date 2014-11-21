@@ -1,4 +1,5 @@
 require 'active_record'
+require 'active_support/inflector'
 require 'act_as_cnpj_cpf/version'
 require 'act_as_cnpj_cpf/base'
 require 'act_as_cnpj_cpf/cnpj'
