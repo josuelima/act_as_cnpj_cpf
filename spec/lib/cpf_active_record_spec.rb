@@ -151,6 +151,25 @@ describe Pessoa do
       p = Pessoa.new
       expect(pessoa.save).to be false
     end
+
+    context 'validations' do
+      it 'deveria conter erro para codigo' do
+        expect(pessoa.valid?).to be false
+        expect(pessoa.errors[:codigo]).to_not be_empty
+      end
+
+      it 'deveria conter mensagem de erro para codigo vazio' do
+        p = Pessoa.new
+        expect(p.valid?).to be false
+        expect(p.errors[:codigo]).to eq [I18n.translate('errors.messages.blank')]
+      end
+
+      it 'deveria conter mensagem de erro para codigo invalido' do
+        p = Pessoa.new(codigo: '1234')
+        expect(p.valid?).to be false
+        expect(p.errors[:codigo]).to eq [I18n.translate('errors.messages.invalid')]
+      end
+    end
   end
 end
 

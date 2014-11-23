@@ -31,14 +31,14 @@ module ActAsCnpjCpf
           validate :#{field}_vazio?, :#{field}_valido?
 
           def #{field}_vazio?
-            self.errors.add('#{field}', 'número vazio') if #{field}.nil? &&
-                                                          !#{field}_permite_invalido?
+            self.errors.add('#{field}', :blank) if #{field}.nil? &&
+                                                  !#{field}_permite_invalido?
           end
 
           def #{field}_valido?
             unless #{field}.nil?
-              self.errors.add('#{field}', 'número inválido') unless #{field}.valido? ||
-                                                                    #{field}_permite_invalido?
+              self.errors.add('#{field}', :invalid) unless #{field}.valido? ||
+                                                           #{field}_permite_invalido?
             end
           end
 
