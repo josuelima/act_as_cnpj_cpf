@@ -20,7 +20,7 @@ module ActAsCnpjCpf
     end
 
     def == other
-      other.is_a?(self.class) ? self.numero == other.numero : self.numero == other
+      other.respond_to?(:numero) ? self.numero == other.numero : self.numero == other
     end
 
     private

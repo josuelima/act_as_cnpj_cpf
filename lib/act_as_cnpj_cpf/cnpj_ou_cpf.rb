@@ -3,7 +3,7 @@ module ActAsCnpjCpf
     extend Forwardable
     # forward dos metodos e vars para o objeto criado de acordo
     # com o numero passado
-    def_delegators :@instance, :numero, :to_s, :valido?, :formatado
+    def_delegators :@instance, :numero, :to_s, :valido?, :formatado, :==
 
     # Infere se utiliza cnpj ou cpf pelo tamanho
     # da string passada

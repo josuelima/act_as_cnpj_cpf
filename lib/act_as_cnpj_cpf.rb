@@ -1,3 +1,4 @@
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'active_record'
 require 'active_support/inflector'
 require 'act_as_cnpj_cpf/version'
