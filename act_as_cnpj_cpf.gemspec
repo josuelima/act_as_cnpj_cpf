@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.platform     = Gem::Platform::RUBY
   gem.authors      = ['Josué Lima']
   gem.email        = ['josuedsi@gmail.com']
-  gem.summary      = %q{Permite que um atributo seja utilizado, e validado, como CFP, CNPJ ou ambos}
+  gem.summary      = %q{Permite formatar e validar um atributo ActiveRecord como CPF, CNPJ ou ambos}
   gem.description  = gem.summary
   gem.license      = 'MIT'
   gem.homepage     = 'https://github.com/josuelima/act_as_cnpj_cpf'
