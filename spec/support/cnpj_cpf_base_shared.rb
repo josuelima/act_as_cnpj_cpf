@@ -31,9 +31,11 @@ shared_examples 'objeto valido' do
   end
 
   it '#==' do
-    codigo = gerador.numeric
-    expect(model.new(codigo)).to eq model.new(codigo)
-    expect(model.new(codigo)).to eq codigo
+    geradores.each do |gerador|
+      codigo = gerador.numeric
+      expect(model.new(codigo)).to eq model.new(codigo)
+      expect(model.new(codigo)).to eq codigo
+    end
   end
 end
 
