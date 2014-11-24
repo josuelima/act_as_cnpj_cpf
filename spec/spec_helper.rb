@@ -9,6 +9,7 @@ require 'support/active_record'
 
 # shared samples
 require 'support/cnpj_cpf_active_record_shared'
+require 'support/cnpj_cpf_base_shared'
 
 # silence warnings about i18n validation deprecations
 I18n.config.enforce_available_locales = true
