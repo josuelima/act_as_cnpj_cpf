@@ -16,8 +16,8 @@ describe 'usar codigo como cpf' do
   let(:instance)     { Pessoa.new }
   let(:instance_inv) { PessoaInvalida.new }
   let(:tipo)         { ActAsCnpjCpf::Cpf }
-  let(:formato)      { /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/ }
-  let(:gerador)      { Faker::CPF }
+  let(:formato_cpf)  { /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/ }
+  let(:geradores)    { [ Faker::CPF ] }
   let(:codigos)      { [ Faker::CPF.numeric, Faker::CPF.pretty ] }
   let(:invalidos)    { [ '', 'asda', '11111111112', 11 ] }
 

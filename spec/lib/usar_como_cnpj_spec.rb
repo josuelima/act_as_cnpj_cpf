@@ -16,8 +16,8 @@ describe 'usar codigo como cnpj' do
   let(:instance)     { Empresa.new }
   let(:instance_inv) { EmpresaInvalida.new }
   let(:tipo)         { ActAsCnpjCpf::Cnpj }
-  let(:formato)      { /(\d{2})\.?(\d{3})\.?(\d{3})\/?(\d{4})-?(\d{2})/ }
-  let(:gerador)      { Faker::CNPJ }
+  let(:formato_cnpj) { /(\d{2})\.?(\d{3})\.?(\d{3})\/?(\d{4})-?(\d{2})/ }
+  let(:geradores)    { [ Faker::CNPJ ] }
   let(:codigos)      { [ Faker::CNPJ.numeric, Faker::CNPJ.pretty ] }
   let(:invalidos)    { [ '', 'asda', '11111111112123', 11 ] }
 

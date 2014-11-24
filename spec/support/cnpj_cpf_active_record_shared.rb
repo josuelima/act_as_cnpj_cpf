@@ -41,13 +41,13 @@ shared_examples 'entidade valida' do
         codigo.gsub!(/[^0-9]/, '')
         instance.codigo = codigo      
 
-        if instance.codigo.is_a?(ActAsCnpjCpf::Cpf)
-          instance.codigo.numero =~ formato_cpf
-          formatado = "#{$1}.#{$2}.#{$3}-#{$4}"
-        else
-          instance.codigo.numero =~ formato_cnpj
-          formatado = "#{$1}.#{$2}.#{$3}/#{$4}-#{$5}"
-        end
+        formatado = if instance.codigo.numero.length == 11
+                      instance.codigo.numero =~ formato_cpf
+                      "#{$1}.#{$2}.#{$3}-#{$4}"
+                    else
+                      instance.codigo.numero =~ formato_cnpj
+                      "#{$1}.#{$2}.#{$3}/#{$4}-#{$5}"
+                    end
 
         expect(instance.codigo.formatado).to eq formatado
       end
