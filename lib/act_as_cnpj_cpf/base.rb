@@ -7,7 +7,7 @@ module ActAsCnpjCpf
       @match  = @numero =~ self.class::REGEX
       @puro   = $1
       @digito = $2
-      @numero = valido? ? $1+$2 : ''
+      @numero = valido? ? $1+$2 : numero
     end
 
     def to_s

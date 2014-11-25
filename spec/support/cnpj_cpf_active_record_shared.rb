@@ -14,7 +14,7 @@ shared_examples 'entidade valida' do
       end
     end
 
-    it 'deveria alterar o valor do codigo informado' do
+    it '.numero' do
       codigos.each do |codigo|
         instance.codigo = 'teste'
         instance.codigo = codigo
@@ -22,21 +22,21 @@ shared_examples 'entidade valida' do
       end
     end
 
-    it 'deveria ter codigo valido' do
+    it '#valido?' do
       codigos.each do |codigo|
         instance.codigo = codigo
         expect(instance.codigo.valido?).to be true
       end
     end
 
-    it 'deveria transformar em string' do
+    it '#to_s' do
       codigos.each do |codigo|
         instance.codigo = codigo
         expect(instance.codigo.to_s).to eq codigo.gsub(/[^0-9]/, '')
       end
     end
 
-    it 'deveria exibir codigo formatado' do
+    it '#formatado' do
       codigos.each do |codigo|
         codigo.gsub!(/[^0-9]/, '')
         instance.codigo = codigo      
@@ -53,17 +53,17 @@ shared_examples 'entidade valida' do
       end
     end
 
-    it 'deveria ser um registro valido' do
+    it '#valid?' do
       instance.codigo = codigos.first
       expect(instance.valid?).to be true
     end
 
-    it 'deveria persistir' do
+    it '#save' do
       instance.codigo = codigos.first
       expect { instance.save }.to change(model, :count).by 1
     end
 
-    it 'deveria carregar model com codigo salvo' do
+    it '#find' do
       geradores.each do |gerador|
         record = model.create!(codigo: (codigo = gerador.numeric))
         loaded = model.find(record.id)
@@ -72,7 +72,7 @@ shared_examples 'entidade valida' do
       end
     end
 
-    it 'deveria atualizar model com novo codigo' do
+    it '#update' do
       geradores.each do |gerador|
         record = model.create!(codigo: gerador.numeric)
         record.update(codigo: (codigo = gerador.numeric))
@@ -81,14 +81,14 @@ shared_examples 'entidade valida' do
       end
     end
 
-    it 'deveria comparar com string utilizando ==' do
+    it '#== to_s' do
       geradores.each do |gerador|
         instance.codigo = (codigo = gerador.numeric)
         expect(instance.codigo).to eq codigo
       end
     end
 
-    it 'deveria comparar instancia utilizando ==' do
+    it '#== instance' do
       geradores.each do |gerador|
         codigo = gerador.numeric
         instance.codigo = codigo
@@ -102,53 +102,53 @@ shared_examples 'entidade valida' do
     it 'deveria atribuir codigo em branco ao criar objeto' do
       invalidos.each do |codigo|
         obj = model.new(codigo: codigo)
-        expect(obj.codigo.numero).to eq ''
+        expect(obj.codigo.numero).to eq codigo
       end
     end
 
-    it 'deveria atribuir codigo em branco apos criar objeto' do
+    it '.numero' do
       invalidos.each do |codigo|
         instance.codigo = codigo
-        expect(instance.codigo.numero).to eq ''
+        expect(instance.codigo.numero).to eq codigo
       end
     end
 
-    it 'deveria ser codigo invalido' do
+    it '#valido' do
       invalidos.each do |codigo|
         instance.codigo = codigo
         expect(instance.codigo.valido?).to be false
       end
     end
 
-    it 'deveria transformar em string em branco' do
+    it '#to_s' do
       invalidos.each do |codigo|
         instance.codigo = codigo
-        expect(instance.codigo.to_s).to eq ''
+        expect(instance.codigo.to_s).to eq codigo
       end
     end
 
-    it 'deveria exibir codigo formatado em branco' do
+    it '#formatado' do
       invalidos.each do |codigo|
         instance.codigo = codigo
         expect(instance.codigo.formatado).to eq ''
       end
     end
 
-    it 'deveria ser registro invalido' do
+    it '#valid?' do
       invalidos.each do |codigo|
         instance.codigo = codigo
         expect(instance.valid?).to be false
       end
     end
 
-    it 'nao deveria persistir com codigo invalido' do
+    it '#save invalid' do
       invalidos.each do |codigo|
         instance.codigo = codigo
         expect { instance.save }.to change(model, :count).by 0
       end
     end
 
-    it 'nao persiste com codigo nulo' do
+    it '#save empty' do
       objeto = model.new
       expect(objeto.save).to be false
     end
@@ -156,16 +156,16 @@ shared_examples 'entidade valida' do
 end
 
 shared_examples 'entidade invalida com permissao' do
-  it 'deveria persistir' do
+  it '#save' do
     expect { instance_inv.save }.to change(model_inv, :count).by 1
   end
 
-  it 'deveria persistir com codigo nulo' do
+  it '#save nil' do
     instance_inv.codigo = nil
     expect { instance_inv.save }.to change(model_inv, :count).by 1
   end
 
-  it 'deveria persistir e carregar com codigo nulo' do
+  it '#save #reload' do
     instance_inv.save
     instance_inv.reload
     expect(instance_inv.codigo).to eq nil
@@ -173,17 +173,17 @@ shared_examples 'entidade invalida com permissao' do
 end
 
 shared_examples 'entidade validavel' do
-  it 'deveria conter erro para codigo' do
+  it '#errors' do
     expect(instance.valid?).to be false
     expect(instance.errors[:codigo]).to_not be_empty
   end
 
-  it 'deveria conter mensagem de erro para codigo vazio' do    
+  it '#errors blank' do    
     expect(instance.valid?).to be false
     expect(instance.errors[:codigo]).to eq [I18n.translate('errors.messages.blank')]
   end
 
-  it 'deveria conter mensagem de erro para codigo invalido' do
+  it '#errors invalid' do
     instance.codigo = '12345678911'
     expect(instance.valid?).to be false
     expect(instance.errors[:codigo]).to eq [I18n.translate('errors.messages.invalid')]

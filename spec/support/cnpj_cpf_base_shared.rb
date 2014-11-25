@@ -42,7 +42,7 @@ end
 shared_examples 'objeto invalido' do
   it 'instancia com numero vazio' do
     invalidos.each do |codigo|
-      expect(model.new(codigo).numero).to eq ''
+      expect(model.new(codigo).numero).to eq codigo
     end
   end
 
@@ -60,7 +60,7 @@ shared_examples 'objeto invalido' do
 
   it '#to_s' do
     invalidos.each do |codigo|
-      expect(model.new(codigo).to_s).to eq ''
+      expect(model.new(codigo).to_s).to eq codigo
     end
   end
 end
