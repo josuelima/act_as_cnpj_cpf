@@ -24,7 +24,7 @@ Este projeto foi inicialmente desenvolvido como uma extensão da gem [brcpfcnpj]
 $ gem install act_as_cnpj_cpf
 ```
 
-ou adicione act_as_cnpj_cpf ao seu Gemfile e `bundle install`:
+ou adicione act_as_cnpj_cpf ao seu Gemfile e em seguida `bundle install`:
 
 ```ruby
 gem 'act_as_cnpj_cpf'
@@ -48,8 +48,8 @@ fulano = Pessoa.new(cpf: '673.929.578-64')
 
 fulano.cpf # retorna numero sem formatação 67392957864
 fulano.cpf.formatado # retorna 673.929.578-64
-fulano.cpf.valido? # retorna true
-fulano.valid? # retorna true
+fulano.cpf.valido? # validação do CPF, retorna true
+fulano.valid? # validação do objeto pessoa, retorna true
 fulano.save # retorna true e salva sem formatação no cpf
 ```
 
@@ -58,9 +58,9 @@ CPF Inválido
 ```ruby
 fulano = Pessoa.new(cpf: '111111')
 fulano.cpf # retorna 111111
-fulano.cpf.valido? # retorna false
+fulano.cpf.valido? # validação do CPF, retorna false
 fulano.cpf.formatado # retorna 111111
-fulano.valid? # retorna false
+fulano.valid? # validação do objeto pessoa, retorna false
 fulano.save # retorna false e adiciona mensagem de erro ao model (fulano.errors)
 ```
 
@@ -78,8 +78,7 @@ company = Empresa.new(cnpj: '54.609.346/4364-07')
 
 company.cnpj # retorna numero sem formatação 54609346436407
 company.cnpj.formatado # retorna 54.609.346/4364-07
-company.cnpj.valido? # retorna true
-company.valid? # retorna true
+company.cnpj.valido? # validação do CNPJ, retorna true
 company.save # retorna true e salva sem formatação no cnpj
 ```
 
@@ -88,9 +87,8 @@ CNPJ Inválido
 ```ruby
 company = Empresa.new(cnpj: '1111111111111')
 company.cnpj # retorna 1111111111111
-company.cnpj.valido? # retorna false
+company.cnpj.valido? # validação do CNPJ, retorna false
 company.cnpj.formatado # retorna 1111111111111
-company.valid? # retorna false
 company.save # retorna false e adiciona mensagem de erro ao model (company.errors)
 ```
 
@@ -112,10 +110,27 @@ cliente = Cliente.new(codigo: '67392957864')
 cliente.codigo # retorna o cpf ou cnpj informado sem formatação
 cliente.codigo.formatado # retorna o cpf ou cnpj informado devidamente formatado
 cliente.codigo.valido? # retorna true caso seja um cnpj ou cpf válido
-cliente.valid? # retorna true caso seja um cnpj ou cpf válido
 cliente.save # retorna true e salva sem formatação caso seja um cnpj ou cpf válido
 ```
 A validação é feita de acordo com o tamanho do valor informado (após remover os caracteres especiais). Se == 11 tenta validar como CPF caso contrario tenta validar como CNPJ.
+
+### Persistir mesmo com CNPJ ou CPF Inválido
+
+Caso o CNPJ ou CPF não sejam válidos o objeto não será salvo no banco de dados e uma mensagem de erro anexada ao objeto. Porém, podem existir casos onde você precise persistir CPF ou CNPJ inválidos para analises futuras. Para isso, utilize o atributo `permite_invalido: true`.
+
+```ruby
+class Pessoa < ActiveRecord::Base
+  usar_como_cpf :cpf, permite_invalido: true
+end
+
+class Empresa < ActiveRecord::Base
+  usar_como_cnpj :cnpj, permite_invalido: true
+end
+
+class Cliente < ActiveRecord::Base
+  usar_como_cnpj_ou_cpf :codigo, permite_invalido: true
+end
+```
 
 ### Sem ActiveRecord
 
