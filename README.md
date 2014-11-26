@@ -36,7 +36,7 @@ gem 'act_as_cnpj_cpf'
 
 CPF Válido
 
-```rails
+```ruby
 class Pessoa < ActiveRecord
   # cpf é um atributo no seu model Pessoa
   usar_como_cpf :cpf
@@ -55,7 +55,7 @@ fulano.save # retorna true e salva objeto sem formatação
 
 CPF Inválido
 
-```rails
+```ruby
 fulano = Pessoa.new(cpf: '111111')
 fulano.cpf # retorna 111111
 fulano.cpf.valido? # retorna false
