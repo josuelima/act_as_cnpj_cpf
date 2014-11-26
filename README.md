@@ -83,7 +83,7 @@ company.valid? # retorna true
 company.save # retorna true e salva sem formatação no cnpj
 ```
 
-CPF Inválido
+CNPJ Inválido
 
 ```ruby
 company = Empresa.new(cnpj: '1111111111111')
@@ -104,14 +104,38 @@ class Cliente < ActiveRecord::Base
   usar_como_cnpj_ou_cpf :codigo
 end
 
-# para cnpj
+# para cnpj com ou sem formatação
 cliente = Cliente.new(codigo: '54609346436407')
-# ou para cpf
-company = Cliente.new(codigo: '67392957864')
+# ou para cpf com ou sem formatação
+cliente = Cliente.new(codigo: '67392957864')
 
-company.codigo # retorna o cpf ou cnpj informado sem formatação
-company.codigo.formatado # retorna o cpf ou cnpj informado devidamente formatado
-company.codigo.valido? # retorna true caso seja um cnpj ou cpf válido
-company.valid? # retorna true caso seja um cnpj ou cpf válido
-company.save # retorna true e salva sem formatação caso seja um cnpj ou cpf válido
+cliente.codigo # retorna o cpf ou cnpj informado sem formatação
+cliente.codigo.formatado # retorna o cpf ou cnpj informado devidamente formatado
+cliente.codigo.valido? # retorna true caso seja um cnpj ou cpf válido
+cliente.valid? # retorna true caso seja um cnpj ou cpf válido
+cliente.save # retorna true e salva sem formatação caso seja um cnpj ou cpf válido
 ```
+A validação é feita de acordo com o tamanho do valor informado (após remover os caracteres especiais). Se == 11 tenta validar como CPF caso contrario tenta validar como CNPJ.
+
+### Sem ActiveRecord
+
+Para utilizar isoladamente basta apenas criar uma nova instancia da class Cpf, Cnpj ou CnpjOuCpf
+
+```ruby
+codigo = ActAsCnpjCpf::Cnpj.new( cnpj )
+codigo = ActAsCnpjCpf::Cpf.new( cpf )
+codigo = ActAsCnpjCpf::CnpjOuCpf.new( cnpj_ou_cpf )
+
+# api
+codigo.valido?   # true ou false
+codigo.numero    # cpf ou cnpj sem formatação
+codigo.formatado # cpf ou cnpj formatado
+```
+
+## Contribuindo
+
+1. Fork it ( http://github.com/josuelima/act_as_cnpj_cpf/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
