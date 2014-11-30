@@ -14,7 +14,7 @@ module ActAsCnpjCpf
 
       def init(field, options, klass)
         add_composed_class(field, klass)
-        module_eval(create_validation(field.to_s, options, klass))
+        module_eval(create_validation(field.to_s, options))
       end
 
       # Adiciona reader e writer 
@@ -26,7 +26,7 @@ module ActAsCnpjCpf
       end
 
       # cria validacao para o model
-      def create_validation(field, options, klass)
+      def create_validation(field, options)
         <<-CODE
           validate :#{field}_vazio?, :#{field}_valido?
 
