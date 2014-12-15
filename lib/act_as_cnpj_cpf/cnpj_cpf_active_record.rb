@@ -7,7 +7,7 @@ module ActAsCnpjCpf
 
     module ClassMethods
       %w(cnpj cpf cnpj_ou_cpf).each do |method|
-        define_method("usar_como_#{method}") do |field, options = {}| 
+        define_method("usar_como_#{method}") do |field, options = {}|
           init(field, options, "ActAsCnpjCpf::#{method.split('_').map(&:capitalize).join}")
         end
       end
@@ -17,7 +17,7 @@ module ActAsCnpjCpf
         module_eval(create_validation(field.to_s, options))
       end
 
-      # Adiciona reader e writer 
+      # Adiciona reader e writer
       # http://api.rubyonrails.org/classes/ActiveRecord/Aggregations/ClassMethods.html
       def add_composed_class(name, klass)
         options = {class_name: klass, mapping: [name.to_s, 'numero'], allow_nil: true}
