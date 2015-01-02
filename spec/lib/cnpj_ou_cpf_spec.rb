@@ -12,5 +12,13 @@ module ActAsCnpjCpf
 
     it_behaves_like 'objeto valido'
     it_behaves_like 'objeto invalido'
+
+    context '#eh_cpf? e #eh_cnpj?' do
+      it 'deveria identificar como cpf' do
+        cpf = model.new(codigo: Faker::CPF.numeric)
+        expect(cpf.eh_cpf?).to  be true
+        expect(cpf.eh_cnpj?).to be false
+      end
+    end
   end
 end
