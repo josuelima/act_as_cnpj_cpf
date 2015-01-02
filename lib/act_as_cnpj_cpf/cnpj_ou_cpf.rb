@@ -16,5 +16,13 @@ module ActAsCnpjCpf
       klass     = numero.to_s.gsub(/[^0-9]/, '').length == 11 ? Cpf : Cnpj
       @instance = klass.new(numero)
     end
+
+    def eh_cpf?
+      @instance.is_a?(Cpf)
+    end
+
+    def eh_cnpj?
+      @instance.is_a?(Cnpj)
+    end
   end
 end

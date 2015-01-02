@@ -19,6 +19,12 @@ module ActAsCnpjCpf
         expect(cpf.eh_cpf?).to  be true
         expect(cpf.eh_cnpj?).to be false
       end
+
+      it 'deveria identificar como cnpj' do
+        cnpj = model.new(codigo: Faker::CNPJ.numeric)
+        expect(cnpj.eh_cnpj?).to  be true
+        expect(cnpj.eh_cpf?).to be false
+      end
     end
   end
 end
