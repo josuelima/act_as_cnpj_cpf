@@ -111,6 +111,8 @@ cliente.codigo # retorna o cpf ou cnpj informado sem formatação
 cliente.codigo.formatado # retorna o cpf ou cnpj informado devidamente formatado
 cliente.codigo.valido? # retorna true caso seja um cnpj ou cpf válido
 cliente.save # retorna true e salva sem formatação caso seja um cnpj ou cpf válido
+cliente.eh_cpf? # retorna true se o conteudo do codigo for um CPF
+cliente.eh_cnpj? # retorna true se o conteudo do codigo for um CNPJ
 ```
 A validação é feita de acordo com o tamanho do valor informado (após remover os caracteres especiais). Se == 11 tenta validar como CPF caso contrario tenta validar como CNPJ.
 
