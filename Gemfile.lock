@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    act_as_cnpj_cpf (1.1.0)
+    act_as_cnpj_cpf (2.0.0)
       activerecord (~> 5.0)
       activesupport (~> 5.0)
 
@@ -59,9 +59,9 @@ PLATFORMS
 DEPENDENCIES
   act_as_cnpj_cpf!
   codeclimate-test-reporter
-  cpf_faker
+  cpf_faker (~> 1.3)
   rspec (~> 3.1)
-  sqlite3
+  sqlite3 (~> 1.3)
 
 BUNDLED WITH
    1.12.5
